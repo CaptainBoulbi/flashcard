@@ -15,7 +15,7 @@ case $1 in
     ;;
 
   "list")
-    ls $carddir/$2
+    ls $carddir/$2 | sed -r "s/\.(int|recto|verso)$//g" | uniq
     ;;
 
   "get")

@@ -8,6 +8,9 @@ step="2"
 bold="\033[1m"
 underline="\033[4m"
 nocolor="\033[0m"
+clear="\033[2J\033[0;0H"
+altscreen="\033[?1049h\033[H"
+exit_altscreen="\033[?1049l"
 
 case $1 in
   "")
@@ -85,6 +88,70 @@ case $1 in
     ;;
 
   *)
-    echo "learned"
+    #date '+%F' -d "+1day"
+    #
+    #sixty_days_ago=$(date +%F -d '60 days ago')
+    #if [[ $date < $sixty_days_ago ]]
+    #then echo "Date is older than 60 days"
+    #fi
+
+    cd $carddir/$1
+    cards=$(ls | sed -r "s/\.(int|recto|verso)$//g" | uniq)
+
+    echo -e $altscreen
+
+    for card in $cards; do
+      # check if card need learning, if not continue
+
+      echo "card: $card"
+      cat $card.recto
+      echo -e "\npress enter to get the verso or enter quit to quit."
+      read quit
+
+      [[ $quit == "quit" ]] && exit
+
+
+      echo "verso:"
+      cat $card.verso
+
+      while [[ $valid != "true" ]]; do
+        echo -e "\n(r)Reset - (h)Hard - (e)Easy - (s)Super Easy - (q)Quit"
+        read reponse
+
+        case $reponse in
+          "q" | "quit")
+            exit
+            ;;
+          "r" | "reset")
+            # reset step to $first_interval
+            valid="true"
+            # update date
+            ;;
+          "h" | "hard")
+            # divide step by $step
+            valid="true"
+            # update date
+            ;;
+          "e" | "easy")
+            # multiply step by $step
+            valid="true"
+            # update date
+            ;;
+          "s" | "super easy")
+            # multiply step by $step * 2
+            valid="true"
+            # update date
+            ;;
+          *)
+            echo "value not valid"
+            ;;
+        esac
+      done
+      valid="false"
+
+      echo -e $clear
+    done
+
+    echo -e $exit_altscreen
     ;;
 esac

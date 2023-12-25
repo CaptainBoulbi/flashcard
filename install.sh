@@ -3,6 +3,7 @@
 bindir="/usr/local/bin"
 mandir="/usr/local/man/man1"
 
+chmod +x ./flashcard.sh
 cp ./flashcard.sh $bindir/flashcard
 
 cp ./flashcard.1 $mandir/flashcard.1

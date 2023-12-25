@@ -12,7 +12,11 @@ clear="\033[2J\033[0;0H"
 altscreen="\033[?1049h\033[H"
 exit_altscreen="\033[?1049l"
 
-mkdir -p $carddir
+[ -e $carddir ] || {
+  echo "flashcard dir do not exist, creating it"
+  sudo mkdir -p $carddir
+  sudo chown $USER:$USER $carddir
+}
 
 case $1 in
   "")
@@ -53,6 +57,7 @@ case $1 in
 
         [ -f $carddir/$3.int ] || {
           echo $first_interval > $carddir/$3.int
+          date "+%F" >> $carddir/$3.int
         }
         ;;
 
@@ -66,6 +71,7 @@ case $1 in
 
         [ -f $carddir/$3.int ] || {
           echo $first_interval > $carddir/$3.int
+          date "+%F" >> $carddir/$3.int
         }
         ;;
 
@@ -87,6 +93,7 @@ case $1 in
 
         [ -f $carddir/$2.int ] || {
           echo $first_interval > $carddir/$2.int
+          date "+%F" >> $carddir/$2.int
         }
         ;;
       esac
@@ -127,7 +134,7 @@ case $1 in
             ;;
           "r" | "reset")
             echo $first_interval > $card.int
-            date "+%F" -d "+$first_interval day" >> $card.int
+            date "+%F" >> $card.int
             valid="true"
             ;;
           "h" | "hard")

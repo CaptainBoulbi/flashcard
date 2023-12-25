@@ -1,4 +1,8 @@
 #!/bin/bash
+# TODO : nice feature to have
+# reverse / re-reverse mode :
+#   show verso first and try to remeber recto
+#   switch form reverse mode to normale mode randomly
 
 carddir=/usr/local/flashcard
 

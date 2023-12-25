@@ -91,7 +91,7 @@ case $1 in
 
   *)
     cd $carddir/$1
-    cards=$(ls | sed -r "s/\.(int|recto|verso)$//g" | uniq)
+    cards=$(ls | sed -r "s/\.(int|recto|verso)$//g" | uniq | shuf)
 
     echo -e $altscreen
 

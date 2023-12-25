@@ -1,5 +1,7 @@
 #!/bin/bash
+# install the program at /usr/local/bin/flashcard
 
+# should be /usr/local/flashcard
 carddir=/home/cptbb/dev/flashcard/card
 
 first_interval="1"
@@ -88,28 +90,26 @@ case $1 in
     ;;
 
   *)
-    #date '+%F' -d "+1day"
-    #
-    #sixty_days_ago=$(date +%F -d '60 days ago')
-    #if [[ $date < $sixty_days_ago ]]
-    #then echo "Date is older than 60 days"
-    #fi
-
     cd $carddir/$1
     cards=$(ls | sed -r "s/\.(int|recto|verso)$//g" | uniq)
 
     echo -e $altscreen
 
+    nocard="true"
     for card in $cards; do
-      # check if card need learning, if not continue
+      date=$(sed -n '2 p' $card.int)
+      [[ $2 != "force" && $(date "+%F") < $date ]] && continue
 
-      echo "card: $card"
+      nocard="false"
+      interval=$(sed -n '1 p' $card.int)
+      [ $interval -eq 0 ] && interval=1
+
+      echo "card $card:"
       cat $card.recto
       echo -e "\npress enter to get the verso or enter quit to quit."
+
       read quit
-
       [[ $quit == "quit" ]] && exit
-
 
       echo "verso:"
       cat $card.verso
@@ -123,24 +123,27 @@ case $1 in
             exit
             ;;
           "r" | "reset")
-            # reset step to $first_interval
+            echo $first_interval > $card.int
+            date "+%F" -d "+$first_interval day" >> $card.int
             valid="true"
-            # update date
             ;;
           "h" | "hard")
-            # divide step by $step
+            interval=$(expr $interval \/ $step)
+            echo $interval > $card.int
+            date "+%F" -d "+$interval day" >> $card.int
             valid="true"
-            # update date
             ;;
           "e" | "easy")
-            # multiply step by $step
+            interval=$(expr $interval \* $step)
+            echo $interval > $card.int
+            date "+%F" -d "+$interval day" >> $card.int
             valid="true"
-            # update date
             ;;
           "s" | "super easy")
-            # multiply step by $step * 2
+            interval=$(expr $interval \* $step \* 2)
+            echo $interval > $card.int
+            date "+%F" -d "+$interval day" >> $card.int
             valid="true"
-            # update date
             ;;
           *)
             echo "value not valid"
@@ -155,3 +158,5 @@ case $1 in
     echo -e $exit_altscreen
     ;;
 esac
+
+[[ "$nocard" == "true" ]] && echo "no card to learn for today"

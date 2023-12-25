@@ -1,8 +1,6 @@
 #!/bin/bash
-# install the program at /usr/local/bin/flashcard
 
-# should be /usr/local/flashcard
-carddir=/home/cptbb/dev/flashcard/card
+carddir=/usr/local/flashcard
 
 first_interval="1"
 step="2"

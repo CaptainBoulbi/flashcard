@@ -46,112 +46,42 @@ it will choose when to show you the card again based on your performance.
 .P
 It calculate when to show you the card by * 2, * 4 or / 2
 the amount of day you waited to get this card and add it to the current day.
+.P
+You can modifie of create new deck/card manualy in /usr/local/flashcard by default unless config changed by user.
 .SH USAGE
-dmenu is completely controlled by the keyboard.  Items are selected using the
-arrow keys, page up, page down, home, and end.
 .TP
-.B Tab
-Copy the selected item to the input field.
+.B flashcard
+.br
+With no arguments passed,
+flashcard will by default show a tree of your decks and categories
 .TP
-.B Return
-Confirm selection.  Prints the selected item to stdout and exits, returning
-success.
+.B flashcard list dico
+List all the card in the dico deck
 .TP
-.B Ctrl-Return
-Confirm selection.  Prints the selected item to stdout and continues.
+.B flashcard get recto dico/grass
+.br
+Return the recto of grass card in dico deck.
+.br
+Will do the same with verso and int,
+int means interval,
+it contain the number of day to wait and the date the card is unlocked
 .TP
-.B Shift\-Return
-Confirm input.  Prints the input text to stdout and exits, returning success.
+.B flashcard  edit verso dico/grass "'litle green thing that we need to touch more'"
+.TQ
+.B flashcard  edit recto dico/grass from ./grass-definition.txt
+Change or create the recto or verso face of grass card of dico deck with specified value or from a file
 .TP
-.B Escape
-Exit without selecting an item, returning failure.
+.B flashcard edit dico/grass "'grass noun /ɡrɑːs/'" "grass definition"
+.TQ
+.B flashcard edit dico/grass "'grass noun /ɡrɑːs/'" from ./grass-definition.txt
+.TQ
+.B flashcard edit dico/grass from ./grass-info.txt "grass definition"
+.TQ
+.B flashcard edit dico/grass from ./grass-info.txt from ./grass-definition.txt
+Change or create first the recto and then the verso with specified value or from file.
+Source can be different for recto and verso 
 .TP
-.B Ctrl-Left
-Move cursor to the start of the current word
-.TP
-.B Ctrl-Right
-Move cursor to the end of the current word
-.TP
-.B C\-a
-Home
-.TP
-.B C\-b
-Left
-.TP
-.B C\-c
-Escape
-.TP
-.B C\-d
-Delete
-.TP
-.B C\-e
-End
-.TP
-.B C\-f
-Right
-.TP
-.B C\-g
-Escape
-.TP
-.B C\-h
-Backspace
-.TP
-.B C\-i
-Tab
-.TP
-.B C\-j
-Return
-.TP
-.B C\-J
-Shift-Return
-.TP
-.B C\-k
-Delete line right
-.TP
-.B C\-m
-Return
-.TP
-.B C\-M
-Shift-Return
-.TP
-.B C\-n
-Down
-.TP
-.B C\-p
-Up
-.TP
-.B C\-u
-Delete line left
-.TP
-.B C\-w
-Delete word left
-.TP
-.B C\-y
-Paste from primary X selection
-.TP
-.B C\-Y
-Paste from X clipboard
-.TP
-.B M\-b
-Move cursor to the start of the current word
-.TP
-.B M\-f
-Move cursor to the end of the current word
-.TP
-.B M\-g
-Home
-.TP
-.B M\-G
-End
-.TP
-.B M\-h
-Up
-.TP
-.B M\-j
-Page down
-.TP
-.B M\-k
-Page up
-.TP
-.B M\-l
-Down
+.B flashcard dico [force]
+Will play the cards in dico that are unlocked for today and will update there new date.
+.br
+force is optional, it will force playing all the card even if locked.

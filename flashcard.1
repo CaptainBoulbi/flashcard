@@ -38,16 +38,14 @@ flashcard \- cli flashcard based on the leitner system
 .IR deck-name 
 .RB [ force ]
 .SH DESCRIPTION
-.B dmenu
-is a dynamic menu for X, which reads a list of newline\-separated items from
-stdin.  When the user selects an item and presses Return, their choice is printed
-to stdout and dmenu terminates.  Entering text will narrow the items to those
-matching the tokens in the input.
+.B flashcard
+is a flashcard system based on the leitner system and inspired by the anki app.
 .P
-.B dmenu_run
-is a script used by
-.IR dwm (1)
-which lists programs in the user's $PATH and runs the result in their $SHELL.
+When you study a card,
+it will choose when to show you the card again based on your performance.
+.P
+It calculate when to show you the card by * 2, * 4 or / 2
+the amount of day you waited to get this card and add it to the current day.
 .SH USAGE
 dmenu is completely controlled by the keyboard.  Items are selected using the
 arrow keys, page up, page down, home, and end.

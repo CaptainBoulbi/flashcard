@@ -32,7 +32,7 @@ carddir=/usr/local/flashcard
 To install the script and the man page do:
 ```sh
 chmod +x ./install.sh
-./install.sh
+sudo ./install.sh
 ```
 
 # SYNOPSIS

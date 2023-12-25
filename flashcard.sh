@@ -12,6 +12,8 @@ clear="\033[2J\033[0;0H"
 altscreen="\033[?1049h\033[H"
 exit_altscreen="\033[?1049l"
 
+mkdir -p $carddir
+
 case $1 in
   "")
     tree -d $carddir

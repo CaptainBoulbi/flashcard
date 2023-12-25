@@ -44,6 +44,7 @@ case $1 in
   "edit")
     case $2 in
       "recto")
+        mkdir -p $carddir/${3%/*}
         if [[ $4 == "from" ]]; then
           cp $5 $carddir/$3.recto
         else
@@ -56,6 +57,7 @@ case $1 in
         ;;
 
       "verso")
+        mkdir -p $carddir/${3%/*}
         if [[ $4 == "from" ]]; then
           cp $5 $carddir/$3.verso
         else
@@ -68,6 +70,7 @@ case $1 in
         ;;
 
       *)
+        mkdir -p $carddir/${2%/*}
         if [[ "$3" == "from" && "$5" == "from" ]]; then
           cp $4 $carddir/$2.recto
           cp $6 $carddir/$2.verso
